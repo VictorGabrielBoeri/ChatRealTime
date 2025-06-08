@@ -1,0 +1,207 @@
+.register-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: #f5f5f5;
+}
+
+.register-image {
+  flex: 1;
+  background-image: url('https://cdn.pixabay.com/photo/2024/03/20/12/36/tokyo-skytree-8645455_640.jpg');
+  background-size: cover;
+  background-position: center;
+  display: none;
+  
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
+.register-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  position: relative;
+  overflow-y: auto;
+  background-color: white;
+}
+
+.login-link {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  
+  .login-btn {
+    background: transparent;
+    border: none;
+    color: #4CAF50;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    
+    &:hover {
+      background-color: rgba(76, 175, 80, 0.1);
+    }
+  }
+}
+
+.form-content {
+  max-width: 400px;
+  margin: auto;
+  width: 100%;
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .subtitle {
+    color: #666;
+    margin-bottom: 2rem;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .input-container {
+    position: relative;
+    
+    .material-icons {
+      position: absolute;
+      left: 25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+    }
+    
+    input {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+      
+      &:focus {
+        outline: none;
+        border-color: #4CAF50;
+      }
+    }
+    
+    .password-toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      cursor: pointer;
+      z-index: 10;
+      user-select: none;
+      width: 14%;
+      display: flex;
+      justify-content: end;
+    }
+  }
+  
+  &.terms {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    
+    &:checked + .toggle-slider {
+      background-color: #4CAF50;
+    }
+    
+    &:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+  }
+  
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+    
+    &:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+  }
+}
+
+.register-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+  
+  &:hover {
+    background-color: #388E3C;
+  }
+  
+  &:disabled {
+    background-color: #9E9E9E;
+    cursor: not-allowed;
+  }
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}

@@ -1,0 +1,95 @@
+<div class="register-container">
+  <div class="register-image">
+    <!-- Imagem de meditação com borboletas -->
+  </div>
+  <div class="register-form">
+    <div class="login-link">
+      <button class="login-btn" (click)="goToLogin()">Login</button>
+    </div>
+    <div class="form-content">
+      <h1>Create Account</h1>
+      <p class="subtitle">Sign up to get started</p>
+
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-container">
+            <span class="material-icons">email</span>
+            <input 
+              type="email" 
+              id="email" 
+              formControlName="email" 
+              placeholder="example@gmail.com"
+            >
+          </div>
+          <div class="error-message" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors">
+            <span *ngIf="registerForm.get('email')?.errors?.['required']">Email é obrigatório</span>
+            <span *ngIf="registerForm.get('email')?.errors?.['email']">Email inválido</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-container">
+            <span class="material-icons">lock</span>
+            <input 
+              [type]="hidePassword ? 'password' : 'text'" 
+              id="password" 
+              formControlName="password" 
+              placeholder="••••••"
+            >
+            <span 
+              class="material-icons password-toggle" 
+              (click)="togglePasswordVisibility()"
+            >
+              {{ hidePassword ? 'visibility' : 'visibility_off' }}
+            </span>
+          </div>
+          <div class="error-message" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors">
+            <span *ngIf="registerForm.get('password')?.errors?.['required']">Senha é obrigatória</span>
+            <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Senha deve ter pelo menos 6 caracteres</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <div class="input-container">
+            <span class="material-icons">lock</span>
+            <input 
+              [type]="hideConfirmPassword ? 'password' : 'text'" 
+              id="confirmPassword" 
+              formControlName="confirmPassword" 
+              placeholder="••••••"
+            >
+            <span 
+              class="material-icons password-toggle" 
+              (click)="toggleConfirmPasswordVisibility()"
+            >
+              {{ hideConfirmPassword ? 'visibility' : 'visibility_off' }}
+            </span>
+          </div>
+          <div class="error-message" *ngIf="registerForm.get('confirmPassword')?.touched && (registerForm.get('confirmPassword')?.errors || registerForm.hasError('mismatch'))">
+            <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Confirmação de senha é obrigatória</span>
+            <span *ngIf="registerForm.hasError('mismatch')">As senhas não coincidem</span>
+          </div>
+        </div>
+
+        <div class="form-group terms">
+          <label class="toggle">
+            <input type="checkbox" formControlName="termsAccepted">
+            <span class="toggle-slider"></span>
+          </label>
+          <span>Eu aceito os <a href="#">Termos de Serviço</a> e a <a href="#">Política de Privacidade</a></span>
+        </div>
+        <div class="error-message" *ngIf="registerForm.get('termsAccepted')?.touched && registerForm.get('termsAccepted')?.errors?.['required']">
+          <span>Você deve aceitar os termos para continuar</span>
+        </div>
+
+        <button type="submit" class="register-btn" [disabled]="registerForm.invalid">Create Account</button>
+
+        <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+      </form>
+    </div>
+  </div>
+</div>
+<p>register works!</p>

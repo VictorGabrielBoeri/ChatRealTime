@@ -1,0 +1,189 @@
+<div class="chat-app">
+  <!-- Tela de Login -->
+  <div *ngIf="!isLoggedIn" class="login-screen">
+    <div class="login-container">
+      <div class="login-card">
+        <div class="login-header">
+          <h1>Chat App</h1>
+          <p>Entre para começar a conversar</p>
+        </div>
+        
+        <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+          <div class="form-group">
+            <input 
+              matInput 
+              formControlName="username" 
+              placeholder="Digite seu nome"
+              class="modern-input">
+            <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+              Nome é obrigatório
+            </mat-error>
+          </div>
+          
+          <div class="form-group">
+            <select formControlName="room" class="modern-select">
+              <option value="geral">💬 Geral</option>
+              <option value="tecnologia">💻 Tecnologia</option>
+              <option value="games">🎮 Games</option>
+              <option value="musica">🎵 Música</option>
+            </select>
+          </div>
+          
+          <button 
+            type="submit" 
+            [disabled]="loginForm.invalid" 
+            class="login-btn">
+            Entrar no Chat
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interface Principal do Chat -->
+  <div *ngIf="isLoggedIn" class="chat-interface">
+    <!-- Sidebar com conversas -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="user-profile">
+          <div class="avatar">
+            <img src="https://ui-avatars.com/api/?name={{currentUser}}&background=667eea&color=fff" alt="Avatar">
+          </div>
+          <div class="user-info">
+            <h3>{{currentUser}}</h3>
+            <span class="status">Online</span>
+          </div>
+        </div>
+        
+        <div class="search-box">
+          <input type="text" placeholder="Buscar conversas..." class="search-input">
+          <mat-icon class="search-icon">search</mat-icon>
+        </div>
+      </div>
+
+      <div class="conversations">
+        <div class="conversation-item active">
+          <div class="conversation-avatar">
+            <img src="https://ui-avatars.com/api/?name=Sala {{currentRoom}}&background=4f8ff7&color=fff" alt="Sala">
+          </div>
+          <div class="conversation-info">
+            <h4>Sala {{currentRoom}}</h4>
+            <p>{{users.length}} participantes online</p>
+          </div>
+          <div class="conversation-meta">
+            <span class="time">Agora</span>
+            <div class="unread-badge" *ngIf="messages.length > 0">{{messages.length}}</div>
+          </div>
+        </div>
+
+        <!-- Lista de usuários online -->
+        <div class="online-users">
+          <h5>Usuários Online ({{users.length}})</h5>
+          <div *ngFor="let user of users" class="user-item">
+            <div class="user-avatar">
+              <img src="https://ui-avatars.com/api/?name={{user.username}}&background=10b981&color=fff" alt="{{user.username}}">
+              <div class="online-dot"></div>
+            </div>
+            <span class="username">{{user.username}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Área principal do chat -->
+    <div class="chat-main">
+      <!-- Header do chat -->
+      <div class="chat-header">
+        <div class="chat-info">
+          <div class="chat-avatar">
+            <img src="https://ui-avatars.com/api/?name=Sala {{currentRoom}}&background=8b5cf6&color=fff" alt="Sala">
+          </div>
+          <div class="chat-details">
+            <h3>Sala {{currentRoom}}</h3>
+            <p>{{users.length}} participantes • Última atividade há 2 min</p>
+          </div>
+        </div>
+        
+        <div class="chat-actions">
+          <button mat-icon-button class="action-btn">
+            <mat-icon>videocam</mat-icon>
+          </button>
+          <button mat-icon-button class="action-btn">
+            <mat-icon>call</mat-icon>
+          </button>
+          <button mat-icon-button class="action-btn">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <button mat-icon-button (click)="logout()" class="logout-btn">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mensagens -->
+      <div class="messages-area" #messagesContainer>
+        <div class="date-separator">
+          <span>Hoje</span>
+        </div>
+
+        <div *ngFor="let message of messages" 
+             [ngClass]="{
+               'message-wrapper': true,
+               'own-message': message.username === currentUser,
+               'system-message': message.username === 'Sistema'
+             }">
+          
+          <div class="message-bubble" *ngIf="message.username !== 'Sistema'">
+            <div class="message-avatar" *ngIf="message.username !== currentUser">
+              <img src="https://ui-avatars.com/api/?name={{message.username}}&background=f59e0b&color=fff" alt="{{message.username}}">
+            </div>
+            
+            <div class="message-content">
+              <div class="message-header" *ngIf="message.username !== currentUser">
+                <span class="sender-name">{{message.username}}</span>
+                <span class="message-time">{{message.timestamp | date:'HH:mm'}}</span>
+              </div>
+              <div class="message-text">{{message.message}}</div>
+              <div class="message-status" *ngIf="message.username === currentUser">
+                <span class="time">{{message.timestamp | date:'HH:mm'}}</span>
+                <mat-icon class="read-status">done_all</mat-icon>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mensagem do sistema -->
+          <div class="system-notification" *ngIf="message.username === 'Sistema'">
+            <span>{{message.message}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input de mensagem -->
+      <div class="message-input-area">
+        <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" class="message-form">
+          <button type="button" mat-icon-button class="attachment-btn">
+            <mat-icon>attach_file</mat-icon>
+          </button>
+          
+          <div class="input-wrapper">
+            <input 
+              formControlName="message"
+              placeholder="Digite sua mensagem..."
+              class="message-input"
+              (keydown.enter)="sendMessage()">
+            <button type="button" mat-icon-button class="emoji-btn">
+              <mat-icon>emoji_emotions</mat-icon>
+            </button>
+          </div>
+          
+          <button 
+            type="submit" 
+            [disabled]="messageForm.invalid" 
+            class="send-btn">
+            <mat-icon>send</mat-icon>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="settings-container" [ngClass]="{'light-theme': !isDarkTheme, 'dark-theme': isDarkTheme}">
+  <div class="settings-header">
+    <button class="back-button" (click)="backToChat()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>Voltar ao Chat</span>
+    </button>
+    <h1>Configurações</h1>
+  </div>
+
+  <div class="settings-content">
+    <div class="settings-section">
+      <h2>Perfil</h2>
+      <div class="setting-item">
+        <label for="username">Nome de Usuário</label>
+        <input type="text" id="username" [(ngModel)]="username" placeholder="Seu nome de usuário">
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h2>Aparência</h2>
+      <div class="setting-item">
+        <label>Tema</label>
+        <div class="theme-toggle-container">
+          <span>Claro</span>
+          <div class="toggle-switch" (click)="toggleTheme()">
+            <div class="toggle-slider" [class.active]="isDarkTheme"></div>
+          </div>
+          <span>Escuro</span>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <label for="fontSize">Tamanho da Fonte</label>
+        <div class="font-size-control">
+          <button (click)="fontSize = fontSize - 1" [disabled]="fontSize <= 10">-</button>
+          <span>{{ fontSize }}px</span>
+          <button (click)="fontSize = fontSize + 1" [disabled]="fontSize >= 20">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h2>Notificações</h2>
+      <div class="setting-item">
+        <label for="enableNotifications">Ativar Notificações</label>
+        <div class="toggle-switch" (click)="enableNotifications = !enableNotifications">
+          <div class="toggle-slider" [class.active]="enableNotifications"></div>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <label for="messageSound">Som de Mensagem</label>
+        <div class="toggle-switch" (click)="messageSound = !messageSound">
+          <div class="toggle-slider" [class.active]="messageSound"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h2>Idioma</h2>
+      <div class="setting-item">
+        <label for="language">Selecione o Idioma</label>
+        <select id="language" [(ngModel)]="language">
+          <option value="pt-BR">Português (Brasil)</option>
+          <option value="en-US">English (US)</option>
+          <option value="es">Español</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="settings-actions">
+      <button class="save-button" (click)="saveSettings()">Salvar Configurações</button>
+    </div>
+  </div>
+</div>
