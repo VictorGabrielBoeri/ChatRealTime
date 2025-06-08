@@ -1,0 +1,50 @@
+// Mixins para elementos comuns
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin icon-base {
+  width: $icon-size;
+  height: $icon-size;
+  @include flex-center;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: $transition-default;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  
+  &:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  &.active {
+    background-color: var(--accent-color);
+    color: white;
+  }
+}
+
+@mixin scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) var(--bg-secondary);
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 6px;
+  }
+}

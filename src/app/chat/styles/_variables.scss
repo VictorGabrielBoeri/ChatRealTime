@@ -1,0 +1,22 @@
+// Importar temas globais
+@import '../../styles/themes';
+
+// Variáveis específicas do componente chat
+$sidebar-width: 300px;
+$avatar-size: 45px;
+$icon-size: 40px;
+$border-radius-default: 12px;
+$transition-default: all 0.3s ease;
+
+// Adicionar versões RGB das cores para uso com transparência
+:root {
+  --accent-color-rgb: 42, 94, 232; // RGB da cor de destaque
+  --bg-primary-rgb: 14, 22, 33;     // RGB do fundo primário (tema escuro)
+  --bg-secondary-rgb: 23, 33, 43;   // RGB do fundo secundário (tema escuro)
+}
+
+.light-theme {
+  --accent-color-rgb: 42, 94, 232;  // RGB da cor de destaque
+  --bg-primary-rgb: 245, 245, 245;  // RGB do fundo primário (tema claro)
+  --bg-secondary-rgb: 255, 255, 255; // RGB do fundo secundário (tema claro)
+}

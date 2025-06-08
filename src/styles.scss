@@ -17,3 +17,39 @@ html {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Estilos globais de scrollbar
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color, #2a5ee8) var(--bg-secondary, #17212b);
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--bg-secondary, #17212b);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color, #2a5ee8);
+    border-radius: 6px;
+  }
+}
+
+// Classes de utilidade para flexbox
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}

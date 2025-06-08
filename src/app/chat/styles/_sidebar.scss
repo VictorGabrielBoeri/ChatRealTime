@@ -1,0 +1,91 @@
+// Melhorias na barra lateral
+.sidebar {
+  width: $sidebar-width;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  transition: $transition-default;
+  padding-left: 8px; // Adicionar padding esquerdo
+  padding-right: 8px; // Adicionar padding direito
+}
+
+.sidebar-header {
+  padding: 20px 25px; // Aumentado de 20px para 25px
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  background: linear-gradient(to right, var(--bg-primary), var(--bg-secondary));
+  height: 70px;
+  margin: 0 -8px; // Compensar o padding da sidebar
+}
+
+// Ícones com efeito de hover mais suave
+.mail-icon, .star-icon, .folder-icon, .monitor-icon {
+  @include icon-base;
+  border-radius: $border-radius-default;
+  margin-bottom: 12px;
+  flex: 0 0 calc(50% - 6px);
+  max-width: $icon-size;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); // Transição mais suave
+
+  &:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &.active {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    color: white;
+  }
+}
+
+.settings-list {
+  display: grid;
+  gap: 30px;
+  padding: 30px;
+}
+
+.sidebar-icons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px; // Aumentado de 12px para 15px
+  justify-content: center;
+  width: 100%;
+  padding: 0 15px; // Aumentado de 10px para 15px
+  margin-top: 10px; // Adicionar margem superior
+}
+
+.mail-icon, .star-icon, .folder-icon, .monitor-icon {
+  @include icon-base;
+  border-radius: $border-radius-default;
+  margin-bottom: 12px;
+  flex: 0 0 calc(50% - 6px);
+  max-width: $icon-size;
+
+  .tooltip {
+    position: absolute;
+    left: 50px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: $transition-default;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  &:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(5px);
+  }
+}

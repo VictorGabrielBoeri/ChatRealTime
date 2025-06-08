@@ -176,12 +176,27 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
   
   // Método para lidar com a seleção de arquivos
+  // Método para lidar com a seleção de arquivos
   handleFileInput(event: Event): void {
+    // Se for clique no botão, abrir o seletor de arquivo
+    if (event.type === 'click') {
+      const fileInput = document.getElementById('file-upload') as HTMLInputElement;
+      fileInput?.click();
+      return;
+    }
+    
+    // Se for mudança no input, processar o arquivo
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
       this.message = `Arquivo: ${this.selectedFile.name}`;
     }
+  }
+  
+  // Adicionar método para anexar imagem
+  attachImage(): void {
+    const imageInput = document.getElementById('image-upload') as HTMLInputElement;
+    imageInput?.click();
   }
 
   // Método para lidar com a seleção de imagens
@@ -366,5 +381,18 @@ export class ChatComponent implements OnInit, OnDestroy {
   clearSearch(): void {
     this.searchTerm = '';
     this.filterContacts();
+  }
+
+  // Método para limpar arquivo selecionado
+  clearSelectedFile(): void {
+    this.selectedFile = null;
+    this.selectedImage = null;
+    this.message = '';
+    
+    // Limpar inputs
+    const fileInput = document.getElementById('file-upload') as HTMLInputElement;
+    const imageInput = document.getElementById('image-upload') as HTMLInputElement;
+    if (fileInput) fileInput.value = '';
+    if (imageInput) imageInput.value = '';
   }
 }

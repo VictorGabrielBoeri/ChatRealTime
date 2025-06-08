@@ -33,7 +33,9 @@ export class SocketService {
   }
 
   // Enviar mensagem
+  // Verifique se estes métodos existem e estão funcionando
   sendMessage(message: Message): void {
+    console.log('Enviando mensagem via socket:', message);
     this.socket.emit('message', message);
   }
 
