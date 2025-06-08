@@ -1,7 +1,50 @@
+@import '../styles/themes';
+
 :host {
   display: block;
   height: 100vh;
   width: 100%;
+}
+
+.chat-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background: var(--chat-gradient);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-primary);
+}
+
+/* Estilos compartilhados para ícones */
+%icon-base {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  &:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  &.active {
+    background-color: var(--accent-color);
+    color: white;
+  }
+}
+
+.mail-icon, .star-icon, .folder-icon, .monitor-icon {
+  @extend %icon-base;
 }
 
 /* Variáveis de cores para tema escuro (padrão) */
